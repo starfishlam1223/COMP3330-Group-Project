@@ -1,4 +1,4 @@
-package com.example.yellowobjects.ui.dashboard;
+package com.example.yellowobjects.ui.poster_page;
 
 import android.content.Context;
 import android.content.Intent;

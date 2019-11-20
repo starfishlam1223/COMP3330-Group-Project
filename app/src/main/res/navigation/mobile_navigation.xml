@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_ybmap">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.yellowobjects.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_ybmap"
+        android:name="com.example.yellowobjects.ui.ybmap.YBMapFragment"
+        android:label="@string/title_ybmap"
+        tools:layout="@layout/fragment_ybmap" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.yellowobjects.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_poster_page"
+        android:name="com.example.yellowobjects.ui.poster_page.PosterPageFragment"
+        android:label="@string/title_poster_page"
+        tools:layout="@layout/fragment_poster_page" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.yellowobjects.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_schedule"
+        android:name="com.example.yellowobjects.ui.schedule.ScheduleFragment"
+        android:label="@string/title_schedule"
+        tools:layout="@layout/fragment_schedule" />
 </navigation>

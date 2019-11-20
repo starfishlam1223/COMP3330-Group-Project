@@ -1,4 +1,4 @@
-package com.example.yellowobjects.ui.dashboard;
+package com.example.yellowobjects.ui.poster_page;
 
 public class Event {
     String image, title, desc, id;

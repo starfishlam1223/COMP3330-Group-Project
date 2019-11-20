@@ -1,16 +1,16 @@
-package com.example.yellowobjects.ui.notifications;
+package com.example.yellowobjects.ui.poster_page;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class NotificationsViewModel extends ViewModel {
+public class PosterPageViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public NotificationsViewModel() {
+    public PosterPageViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+        mText.setValue("This is PosterPage fragment");
     }
 
     public LiveData<String> getText() {

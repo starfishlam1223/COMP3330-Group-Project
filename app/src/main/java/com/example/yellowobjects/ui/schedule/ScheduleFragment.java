@@ -1,4 +1,4 @@
-package com.example.yellowobjects.ui.notifications;
+package com.example.yellowobjects.ui.schedule;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.yellowobjects.R;
 
-public class NotificationsFragment extends Fragment {
+public class ScheduleFragment extends Fragment {
 
-    private NotificationsViewModel notificationsViewModel;
+    private ScheduleViewModel scheduleViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                ViewModelProviders.of(this).get(NotificationsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_notifications, container, false);
+        scheduleViewModel =
+                ViewModelProviders.of(this).get(ScheduleViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_schedule, container, false);
         final TextView textView = root.findViewById(R.id.text_notifications);
-        notificationsViewModel.getText().observe(this, new Observer<String>() {
+        scheduleViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
