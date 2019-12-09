@@ -22,4 +22,10 @@
         android:name="com.example.yellowobjects.ui.schedule.ScheduleFragment"
         android:label="@string/title_schedule"
         tools:layout="@layout/fragment_schedule" />
+
+    <fragment
+        android:id="@+id/navigation_game"
+        android:name="com.example.yellowobjects.ui.schedule.ScheduleFragment"
+        android:label="@string/title_game"
+        tools:layout="@layout/fragment_game" />
 </navigation>
