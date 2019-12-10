@@ -47,7 +47,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="2019"
-            android:inputType="date" />
+            android:inputType="number"
+            android:maxLength="4" />
 
         <TextView
             android:id="@+id/slash1"
@@ -64,7 +65,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="12"
-            android:inputType="date" />
+            android:inputType="number"
+            android:maxLength="2" />
 
         <TextView
             android:id="@+id/slash2"
@@ -81,7 +83,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="12"
-            android:inputType="date" />
+            android:inputType="number"
+            android:maxLength="2" />
 
         <EditText
             android:id="@+id/starth"
@@ -91,13 +94,15 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="19"
-            android:inputType="time" />
+            android:inputType="number"
+            android:maxLength="2" />
 
         <TextView
             android:id="@+id/colon1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:maxLength="2"
             android:text=":"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -108,13 +113,15 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="30"
-            android:inputType="time" />
+            android:inputType="number"
+            android:maxLength="2" />
 
         <TextView
             android:id="@+id/colon2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:inputType="number"
             android:text=":"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -125,7 +132,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="00"
-            android:inputType="time" />
+            android:inputType="number"
+            android:maxLength="2" />
 
     </LinearLayout>
 
@@ -149,7 +157,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="2019"
-            android:inputType="date" />
+            android:inputType="number"
+            android:maxLength="4" />
 
         <TextView
             android:id="@+id/slash4"
@@ -166,7 +175,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="12"
-            android:inputType="date" />
+            android:inputType="number"
+            android:maxLength="2" />
 
         <TextView
             android:id="@+id/slash3"
@@ -183,7 +193,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="12"
-            android:inputType="date" />
+            android:inputType="number"
+            android:maxLength="2" />
 
         <EditText
             android:id="@+id/endh"
@@ -193,7 +204,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="19"
-            android:inputType="time" />
+            android:inputType="number"
+            android:maxLength="2" />
 
         <TextView
             android:id="@+id/colon3"
@@ -210,7 +222,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="30"
-            android:inputType="time" />
+            android:inputType="number"
+            android:maxLength="2" />
 
         <TextView
             android:id="@+id/colon4"
@@ -227,7 +240,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="00"
-            android:inputType="time" />
+            android:inputType="number"
+            android:maxLength="2" />
 
     </LinearLayout>
 

@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.yellowobjects.R;
+import com.example.yellowobjects.ui.schedule.AddEvent;
 
 import java.io.InputStream;
 import java.util.List;
@@ -52,7 +53,7 @@ public class EventListAdapter extends ArrayAdapter<Event> {
 
         title.setText(event.getTitle());
         desc.setText(event.getDesc());
-        time.setText(event.getTime());
+        time.setText(event.getStartTime());
 
         if (event.getImage() != "null") {
             new DownloadImageTask(poster).execute(event.getImage());
@@ -72,7 +73,26 @@ public class EventListAdapter extends ArrayAdapter<Event> {
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                // TODO: Set extras and go to Add event activity
+                Intent addIntent = new Intent(view.getContext(), AddEvent.class);
+                addIntent.putExtra("title", event.getTitle());
+                addIntent.putExtra("desc", event.getDesc());
+                addIntent.putExtra("venue", event.getVenue());
+
+                addIntent.putExtra("starty", String.format("%02d", event.getStarty()));
+                addIntent.putExtra("startm", String.format("%02d", event.getStartm()));
+                addIntent.putExtra("startd", String.format("%02d", event.getStartd()));
+                addIntent.putExtra("starth", String.format("%02d", event.getStarth()));
+                addIntent.putExtra("starti", String.format("%02d", event.getStarti()));
+                addIntent.putExtra("starts", String.format("%02d", event.getStarts()));
+
+                addIntent.putExtra("endy", String.format("%02d", event.getEndy()));
+                addIntent.putExtra("endm", String.format("%02d", event.getEndm()));
+                addIntent.putExtra("endd", String.format("%02d", event.getEndd()));
+                addIntent.putExtra("endh", String.format("%02d", event.getEndh()));
+                addIntent.putExtra("endi", String.format("%02d", event.getEndi()));
+                addIntent.putExtra("ends", String.format("%02d", event.getEnds()));
+
+                mCtx.startActivity(addIntent);
             }
         });
 

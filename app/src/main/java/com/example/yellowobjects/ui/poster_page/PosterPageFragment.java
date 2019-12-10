@@ -32,6 +32,24 @@ public class PosterPageFragment extends ListFragment implements AdapterView.OnIt
 
     private PosterPageViewModel posterPageViewModel;
 
+    String title;
+    String desc;
+    String venue;
+
+    int starty;
+    int startm;
+    int startd;
+    int starth;
+    int starti;
+    int starts;
+
+    int endy;
+    int endm;
+    int endd;
+    int endh;
+    int endi;
+    int ends;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         posterPageViewModel =
@@ -102,20 +120,29 @@ public class PosterPageFragment extends ListFragment implements AdapterView.OnIt
                 JSONObject jsonEvent = jsonEvents.getJSONObject(i);
 
                 String id = jsonEvent.getString("id");
-                String title = jsonEvent.getString("title");
-                String desc = jsonEvent.getString("description");
+                title = jsonEvent.getString("title");
+                desc = jsonEvent.getString("description");
+                venue = jsonEvent.getString("venue");
 
                 JSONObject startdt = jsonEvent.getJSONObject("startdt");
-                int year = Integer.parseInt(startdt.getString("year"));
-                int month = Integer.parseInt(startdt.getString("month"));
-                int day = Integer.parseInt(startdt.getString("day"));
-                int hour = Integer.parseInt(startdt.getString("hour"));
-                int minute = Integer.parseInt(startdt.getString("minute"));
-                int second = Integer.parseInt(startdt.getString("second"));
+                starty = Integer.parseInt(startdt.getString("year"));
+                startm = Integer.parseInt(startdt.getString("month"));
+                startd = Integer.parseInt(startdt.getString("day"));
+                starth = Integer.parseInt(startdt.getString("hour"));
+                starti = Integer.parseInt(startdt.getString("minute"));
+                starts = Integer.parseInt(startdt.getString("second"));
+
+                JSONObject enddt = jsonEvent.getJSONObject("startdt");
+                endy = Integer.parseInt(enddt.getString("year"));
+                endm = Integer.parseInt(enddt.getString("month"));
+                endd = Integer.parseInt(enddt.getString("day"));
+                endh = Integer.parseInt(enddt.getString("hour"));
+                endi = Integer.parseInt(enddt.getString("minute"));
+                ends = Integer.parseInt(enddt.getString("second"));
 
                 String image = jsonEvent.getString("image");
 
-                Event event = new Event(image, title, desc, id, year, month, day, hour, minute, second);
+                Event event = new Event(image, title, venue, desc, id, starty, startm, startd, starth, starti, starts, endy, endm, endd, endh, endi, ends);
 
                 events.add(event);
             }

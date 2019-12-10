@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.yellowobjects.R;
+import com.example.yellowobjects.ui.schedule.AddEvent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,6 +42,23 @@ public class EventInfo extends AppCompatActivity {
     Button addEvent;
     Button back;
 
+    String titleStr;
+    String descStr;
+    String venueStr;
+
+    String syearStr;
+    String smonthStr;
+    String sdayStr;
+    String shourStr;
+    String sminuteStr;
+    String ssecondStr;
+
+    String eyearStr;
+    String emonthStr;
+    String edayStr;
+    String ehourStr;
+    String eminuteStr;
+    String esecondStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,33 +122,33 @@ public class EventInfo extends AppCompatActivity {
         try {
             JSONObject jsonEvent = new JSONObject(JSONString);
 
-            String titleStr = jsonEvent.getString("title");
+            titleStr = jsonEvent.getString("title");
             title.setText(titleStr);
 
-            String descStr = jsonEvent.getString("description");
+            descStr = jsonEvent.getString("description");
             desc.setText(descStr);
 
             JSONObject jstartdt = jsonEvent.getJSONObject("startdt");
-            String syearStr = jstartdt.getString("year");
-            String smonthStr = jstartdt.getString("month");
-            String sdayStr = jstartdt.getString("day");
-            String shourStr = jstartdt.getString("hour");
-            String sminuteStr = jstartdt.getString("minute");
-            String ssecondStr = jstartdt.getString("second");
+            syearStr = jstartdt.getString("year");
+            smonthStr = jstartdt.getString("month");
+            sdayStr = jstartdt.getString("day");
+            shourStr = jstartdt.getString("hour");
+            sminuteStr = jstartdt.getString("minute");
+            ssecondStr = jstartdt.getString("second");
             String startdtStr = syearStr + "-" + smonthStr + "-" + sdayStr + " " + shourStr + ":" + sminuteStr + ":" + ssecondStr;
             startdt.setText(startdtStr);
 
             JSONObject jenddt = jsonEvent.getJSONObject("startdt");
-            String eyearStr = jenddt.getString("year");
-            String emonthStr = jenddt.getString("month");
-            String edayStr = jenddt.getString("day");
-            String ehourStr = jenddt.getString("hour");
-            String eminuteStr = jenddt.getString("minute");
-            String esecondStr = jenddt.getString("second");
+            eyearStr = jenddt.getString("year");
+            emonthStr = jenddt.getString("month");
+            edayStr = jenddt.getString("day");
+            ehourStr = jenddt.getString("hour");
+            eminuteStr = jenddt.getString("minute");
+            esecondStr = jenddt.getString("second");
             String enddtStr = eyearStr + "-" + emonthStr + "-" + edayStr + " " + ehourStr + ":" + eminuteStr + ":" + esecondStr;
             enddt.setText(enddtStr);
 
-            String venueStr = jsonEvent.getString("venue");
+            venueStr = jsonEvent.getString("venue");
             venue.setText(venueStr);
 
             String imageStr = jsonEvent.getString("image");
@@ -151,6 +169,36 @@ public class EventInfo extends AppCompatActivity {
                 finish();
             }
         });
+
+        addEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intentTrigger();
+            }
+        });
+    }
+
+    private void intentTrigger () {
+        Intent addIntent = new Intent(this, AddEvent.class);
+        addIntent.putExtra("title", titleStr);
+        addIntent.putExtra("desc", descStr);
+        addIntent.putExtra("venue", venueStr);
+
+        addIntent.putExtra("starty", syearStr);
+        addIntent.putExtra("startm", smonthStr);
+        addIntent.putExtra("startd", sdayStr);
+        addIntent.putExtra("starth", shourStr);
+        addIntent.putExtra("starti", sminuteStr);
+        addIntent.putExtra("starts", ssecondStr);
+
+        addIntent.putExtra("endy", eyearStr);
+        addIntent.putExtra("endm", emonthStr);
+        addIntent.putExtra("endd", edayStr);
+        addIntent.putExtra("endh", ehourStr);
+        addIntent.putExtra("endi", eminuteStr);
+        addIntent.putExtra("ends", esecondStr);
+
+        startActivity(addIntent);
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
