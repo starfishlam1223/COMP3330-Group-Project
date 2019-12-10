@@ -10,44 +10,55 @@
         android:id="@+id/poster"
         android:layout_width="match_parent"
         android:layout_height="170dp"
+        android:layout_margin="10dp"
         android:clickable="true"
         android:scaleType="centerCrop"
-        android:tint="#81FFFFFF"
+        android:tint="#BFFFFFFF"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="310dp"
+        android:layout_width="289dp"
         android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
+        android:scrollHorizontally="false"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <TextView
         android:id="@+id/desc"
-        android:layout_width="318dp"
-        android:layout_height="47dp"
+        android:layout_width="392dp"
+        android:layout_height="54dp"
         android:layout_alignTop="@+id/title"
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="117dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="0dp"
+        android:scrollHorizontally="false"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/time"
-        android:layout_width="314dp"
-        android:layout_height="82dp"
+        android:layout_width="277dp"
+        android:layout_height="36dp"
         android:layout_alignTop="@+id/desc"
-        android:layout_marginTop="48dp"
-        android:gravity="bottom"
-        android:text="TextView" />
+        android:layout_marginTop="-47dp"
+        android:gravity="bottom|top|left"
+        android:paddingLeft="20dp"
+        android:scrollHorizontally="false"
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="96dp"
-        android:layout_height="170dp"
+        android:layout_width="99dp"
+        android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/time"
         android:layout_alignRight="@+id/time"
-        android:layout_marginEnd="-97dp"
-        android:layout_marginRight="-97dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="-114dp"
+        android:layout_marginRight="-114dp"
         android:text="Add to schedule" />
 
 </RelativeLayout>
