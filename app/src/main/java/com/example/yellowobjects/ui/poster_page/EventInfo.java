@@ -80,7 +80,7 @@ public class EventInfo extends AppCompatActivity {
             protected String doInBackground(String... arg0) {
                 // TODO Auto-generated method stub
                 success = true;
-                pdialog.setMessage("Before ...");
+                pdialog.setMessage("Loading...");
                 pdialog.show();
                 jsonString = getJsonPage(url);
                 if (jsonString.equals("Fail to login"))

@@ -58,7 +58,7 @@ public class PosterPageFragment extends ListFragment implements AdapterView.OnIt
         final ProgressDialog pdialog = new ProgressDialog(getActivity());
 
         pdialog.setCancelable(false);
-        pdialog.setMessage("Connecting ...");
+        pdialog.setMessage("Connecting...");
         pdialog.show();
 
         final String url = "https://i.cs.hku.hk/~hslam/comp3330/yellow-objects/php/list.php";
@@ -71,7 +71,7 @@ public class PosterPageFragment extends ListFragment implements AdapterView.OnIt
             protected String doInBackground(String... arg0) {
                 // TODO Auto-generated method stub
                 success = true;
-                pdialog.setMessage("Before ...");
+                pdialog.setMessage("Loading...");
                 pdialog.show();
                 jsonString = getJsonPage(url);
                 if (jsonString.equals("Fail to login"))
