@@ -28,6 +28,7 @@ public class ScheduleFragment extends Fragment {
         scheduleViewModel =
                 ViewModelProviders.of(this).get(ScheduleViewModel.class);
         View root = inflater.inflate(R.layout.fragment_schedule, container, false);
+<<<<<<< Updated upstream
         Calendar calendar = Calendar.getInstance();
         String currentDate = DateFormat.getDateInstance(DateFormat.LONG).format(calendar.getTime());
         TextView textViewDate = (TextView) root.findViewById(R.id.display_current_date);
@@ -50,6 +51,8 @@ public class ScheduleFragment extends Fragment {
 
             }
         });
+=======
+>>>>>>> Stashed changes
 //        final TextView textView = root.findViewById(R.id.text_notifications);
 //        scheduleViewModel.getText().observe(this, new Observer<String>() {
 //            @Override
