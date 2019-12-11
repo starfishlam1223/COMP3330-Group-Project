@@ -65,16 +65,19 @@ public class ScheduleFragment extends Fragment {
         ImageView addToSchedule = (ImageView) root.findViewById(R.id.add_to_schedule);
         addToSchedule.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-
+                while (layout.getChildCount() > eventIndex) {
+                    layout.removeViewAt(eventIndex - 1);
+                }
+                query.addEvent();
+                displayEvents();
             }
         });
+
         return root;
     }
     private void previousDay(){
-        if (layout.getChildCount() > eventIndex) {
-            for (int i = eventIndex - 1; i < layout.getChildCount(); i++) {
-                layout.removeViewAt(i);
-            }
+        while (layout.getChildCount() > eventIndex) {
+            layout.removeViewAt(eventIndex - 1);
         }
         Log.d("eventIndex", String.valueOf(layout.getChildCount()));
         calendar.add(Calendar.DAY_OF_MONTH, -1);
@@ -84,10 +87,8 @@ public class ScheduleFragment extends Fragment {
         Log.d("eventIndex", String.valueOf(layout.getChildCount()));
     }
     private void nextDay(){
-        if (layout.getChildCount() > eventIndex) {
-            for (int i = eventIndex - 1; i < layout.getChildCount(); i++) {
-                layout.removeViewAt(i);
-            }
+        while (layout.getChildCount() > eventIndex) {
+            layout.removeViewAt(eventIndex - 1);
         }
         Log.d("eventIndex", String.valueOf(layout.getChildCount()));
         calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -100,6 +101,7 @@ public class ScheduleFragment extends Fragment {
         Date cDate = calendar.getTime();
         List<EventObject> events = query.getAllFutureEvents(cDate);
         for (EventObject e : events){
+            int id = e.getId();
             Date startDate = e.getStartdt();
             Date endDate = e.getEnddt();
             String title = e.getTitle();
@@ -117,7 +119,7 @@ public class ScheduleFragment extends Fragment {
 //            int ends = e.getEnds();
             int eventBlockHeight = getEventTimeFrame(startDate, endDate);
             Log.d(ScheduleFragment.class.getSimpleName(), "Height " + eventBlockHeight);
-            displayEventSection(startDate, eventBlockHeight, title);
+            displayEventSection(startDate, eventBlockHeight, id, title);
             Log.d("Notif", "displayEvent called!");
         }
     }
@@ -129,7 +131,7 @@ public class ScheduleFragment extends Fragment {
         int minutes = Cal.get(Calendar.MINUTE);
         return (hours * 60) + ((minutes * 60) / 100);
     }
-    private void displayEventSection(Date date, int height, String title){
+    private void displayEventSection(Date date, int height, int id, String title){
         SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
         String displayValue = timeFormatter.format(date);
         String[]hourMinutes = displayValue.split(":");
@@ -139,10 +141,10 @@ public class ScheduleFragment extends Fragment {
         Log.d(ScheduleFragment.class.getSimpleName(), "Minutes value " + minutes);
         int topViewMargin = (hours * 60) + ((minutes * 60) / 100);
         Log.d(ScheduleFragment.class.getSimpleName(), "Margin top " + topViewMargin);
-        createEventView(topViewMargin, height, title);
+        createEventView(topViewMargin, height, id, title);
         Log.d("Notif", "displayEventSection called!");
     }
-    private void createEventView(int topMargin, int height, String title){
+    private void createEventView(int topMargin, int height, final int id, String title){
         TextView mEventView = new TextView(ScheduleFragment.this.getContext());
         RelativeLayout.LayoutParams lParam = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         lParam.addRule(RelativeLayout.ALIGN_PARENT_TOP);
@@ -155,8 +157,17 @@ public class ScheduleFragment extends Fragment {
         mEventView.setTextColor(Color.parseColor("#ffffff"));
         mEventView.setText(title);
         mEventView.setBackgroundColor(Color.parseColor("#3F51B5"));
+        mEventView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                while (layout.getChildCount() > eventIndex) {
+                    layout.removeViewAt(eventIndex - 1);
+                }
+                query.deleteEvent(id);
+                displayEvents();
+            }
+        });
         layout.addView(mEventView, layout.getChildCount() - 1);
         Log.d("Notif", "createEventView called!");
-        Log.d("Notif", "New view added!");
+        Log.d("Notif", "New view added at " + String.valueOf(layout.getChildCount() - 1) + "!");
     }
 }

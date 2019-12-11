@@ -21,6 +21,11 @@ public class EventObject {
     public Date getEnddt() {
         return enddt;
     }
+
+    public int getId() {
+        return id;
+    }
+
     public EventObject(int id, String title, String desc, String venue, Date startdt, Date enddt){
         this.id = id;
         this.title = title;

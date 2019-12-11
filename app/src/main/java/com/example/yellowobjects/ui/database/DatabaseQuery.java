@@ -2,6 +2,7 @@ package com.example.yellowobjects.ui.database;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.example.yellowobjects.ui.poster_page.Event;
 import com.example.yellowobjects.ui.schedule.EventObject;
@@ -37,6 +38,7 @@ public class DatabaseQuery extends DatabaseObject{
         Cursor cursor = this.getDbConnection().rawQuery(query, null);
         if(cursor.moveToFirst()){
             do{
+                Log.d("Event", "Event found");
                 int id = cursor.getInt(0);
                 String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
                 String venue = cursor.getString(cursor.getColumnIndexOrThrow("venue"));
@@ -74,6 +76,20 @@ public class DatabaseQuery extends DatabaseObject{
         }
         cursor.close();
         return events;
+    }
+
+    public void addEvent() {
+        String query = "INSERT INTO yellow_objects(title, description, startdt, enddt, venue)\n" +
+                "  VALUES(\"today\", \"test\", \"12-12-2019 16:30:00\", \"12-12-2019 18:00:00\", \"test\")\n";
+        this.getDbConnection().execSQL(query);
+        Log.d("Event", "Event added!");
+    }
+
+    public void deleteEvent(int id) {
+        String query = "DELETE FROM yellow_objects\n" +
+                "  WHERE id=?\n";
+        this.getDbConnection().execSQL(query, new String[]{String.valueOf(id)});
+        Log.d("Event", "Event deleted!");
     }
 
     private Date convertStringToDate(String dateInString){
