@@ -177,6 +177,9 @@ public class AddEvent extends AppCompatActivity {
                                 }
 
                                 query.addEvent(titleStr, descStr, venueStr, startdt, enddt);
+
+                                Intent intent = new Intent();
+                                setResult(RESULT_OK, intent);
                                 finish();
 
                             } else {

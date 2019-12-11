@@ -1,9 +1,11 @@
 package com.example.yellowobjects.ui.schedule;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static android.app.Activity.RESULT_OK;
+
 public class ScheduleFragment extends Fragment {
 
     private ScheduleViewModel scheduleViewModel;
@@ -36,6 +40,15 @@ public class ScheduleFragment extends Fragment {
     private RelativeLayout layout;
     private int eventIndex;
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+//        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0) {
+            if (resultCode == RESULT_OK) {
+                displayEvents();
+            }
+        }
+    }
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         scheduleViewModel =
@@ -71,9 +84,7 @@ public class ScheduleFragment extends Fragment {
                 }
 //                query.addTestEvent();
                 Intent addEvent = new Intent(getContext(), AddEvent.class);
-                startActivity(addEvent);
-
-                displayEvents();
+                startActivityForResult(addEvent, 0);
             }
         });
 
@@ -135,12 +146,13 @@ public class ScheduleFragment extends Fragment {
         }
     }
     private int getEventTimeFrame(Date start, Date end){
+
         long timeDifference = end.getTime() - start.getTime();
         Calendar Cal = Calendar.getInstance();
         Cal.setTimeInMillis(timeDifference);
         int hours = Cal.get(Calendar.HOUR)-8;
         int minutes = Cal.get(Calendar.MINUTE);
-        return (hours * 60) + ((minutes * 60) / 100);
+        return (hours * 60) + minutes;
     }
     private void displayEventSection(Date date, int height, int id, String title){
         SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
@@ -150,20 +162,26 @@ public class ScheduleFragment extends Fragment {
         int minutes = Integer.parseInt(hourMinutes[1]);
         Log.d(ScheduleFragment.class.getSimpleName(), "Hour value " + hours);
         Log.d(ScheduleFragment.class.getSimpleName(), "Minutes value " + minutes);
-        int topViewMargin = (hours * 60) + ((minutes * 60) / 100);
+        int topViewMargin = (hours * 60) + (minutes);
         Log.d(ScheduleFragment.class.getSimpleName(), "Margin top " + topViewMargin);
         createEventView(topViewMargin, height, id, title);
         Log.d("Notif", "displayEventSection called!");
     }
     private void createEventView(int topMargin, int height, final int id, String title){
+        float dp = this.getResources().getDisplayMetrics().density;
+        float heightInPx = height * dp;
+        float topMarginInPx = topMargin * dp;
+
+        Log.d(ScheduleFragment.class.getSimpleName(), "dp px ratio: " + dp);
+
         TextView mEventView = new TextView(ScheduleFragment.this.getContext());
         RelativeLayout.LayoutParams lParam = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         lParam.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-        lParam.topMargin = topMargin * 3;
+        lParam.topMargin = (int) topMarginInPx;
         lParam.leftMargin = 24;
         mEventView.setLayoutParams(lParam);
         mEventView.setPadding(24, 0, 24, 0);
-        mEventView.setHeight(height * 3);
+        mEventView.setHeight((int) heightInPx);
         mEventView.setGravity(0x11);
         mEventView.setTextColor(Color.parseColor("#ffffff"));
         mEventView.setText(title);
