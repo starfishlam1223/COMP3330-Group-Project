@@ -1,4 +1,4 @@
-package com.example.yellowobjects.database;
+package com.example.yellowobjects.ui.database;
 
 import android.content.Context;
 import android.database.Cursor;
