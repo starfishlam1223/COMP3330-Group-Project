@@ -3,6 +3,7 @@ package com.example.yellowobjects.ui.database;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.yellowobjects.ui.poster_page.Event;
 import com.example.yellowobjects.ui.schedule.EventObject;
@@ -47,6 +48,7 @@ public class DatabaseQuery extends DatabaseObject{
                 String enddt = cursor.getString(cursor.getColumnIndexOrThrow("enddt"));
                 //convert start date to date object
                 Date startdtd = convertStringToDate(startdt);
+                Log.d("Date", startdt);
                 Date enddtd = convertStringToDate(enddt);
 
 //                int starty = startdtd.getYear();
@@ -78,7 +80,26 @@ public class DatabaseQuery extends DatabaseObject{
         return events;
     }
 
-    public void addEvent() {
+    public void addEvent(String title, String desc, String venue, Date startdt, Date enddt) {
+        SimpleDateFormat f = new SimpleDateFormat("d-MM-yyyy HH:mm:ss");
+        try {
+            String startStr = f.format(startdt);
+            Log.d("Start", startStr);
+
+            String endStr = f.format(enddt);
+            Log.d("End", startStr);
+
+            String query = "INSERT INTO yellow_objects(title, description, startdt, enddt, venue)\n" +
+                    "  VALUES(?, ?, ?, ?, ?)\n";
+            this.getDbConnection().execSQL(query, new String [] {title, desc, startStr, endStr, venue});
+            Log.d("Event", "Event added!");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addTestEvent() {
         String query = "INSERT INTO yellow_objects(title, description, startdt, enddt, venue)\n" +
                 "  VALUES(\"today\", \"test\", \"12-12-2019 16:30:00\", \"12-12-2019 18:00:00\", \"test\")\n";
         this.getDbConnection().execSQL(query);
@@ -92,8 +113,14 @@ public class DatabaseQuery extends DatabaseObject{
         Log.d("Event", "Event deleted!");
     }
 
+    public void resetDB() {
+        String query = "DELETE FROM yellow_objects";
+        this.getDbConnection().execSQL(query);
+        Log.d("Event", "Database reset!");
+    }
+
     private Date convertStringToDate(String dateInString){
-        DateFormat format = new SimpleDateFormat("d-MM-yyyy HH:mm", Locale.ENGLISH);
+        DateFormat format = new SimpleDateFormat("d-MM-yyyy HH:mm:ss", Locale.ENGLISH);
         Date date = null;
         try {
             date = format.parse(dateInString);

@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
     android:layout_marginTop="20dp"
     android:orientation="vertical">
 
@@ -286,5 +287,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add event" />
+
+    <Button
+        android:id="@+id/reset_database"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Reset database" />
 
 </LinearLayout>

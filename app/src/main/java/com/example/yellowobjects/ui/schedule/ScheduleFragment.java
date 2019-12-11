@@ -1,5 +1,6 @@
 package com.example.yellowobjects.ui.schedule;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -68,7 +69,10 @@ public class ScheduleFragment extends Fragment {
                 while (layout.getChildCount() > eventIndex) {
                     layout.removeViewAt(eventIndex - 1);
                 }
-                query.addEvent();
+//                query.addTestEvent();
+                Intent addEvent = new Intent(getContext(), AddEvent.class);
+                startActivity(addEvent);
+
                 displayEvents();
             }
         });
@@ -104,6 +108,13 @@ public class ScheduleFragment extends Fragment {
             int id = e.getId();
             Date startDate = e.getStartdt();
             Date endDate = e.getEnddt();
+
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+            String strDates = dateFormat.format(startDate);
+            Log.d("datetime", strDates);
+            String strDatee = dateFormat.format(endDate);
+            Log.d("datetime", strDatee);
+
             String title = e.getTitle();
 //            int starty = e.getStarty();
 //            int startm = e.getStartm();
