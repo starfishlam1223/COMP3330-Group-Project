@@ -45,6 +45,7 @@ public class DatabaseQuery extends DatabaseObject{
                 //convert start date to date object
                 Date startdtd = convertStringToDate(startdt);
                 Date enddtd = convertStringToDate(enddt);
+
                 int starty = startdtd.getYear();
                 int startm = startdtd.getMonth();
                 int startd = startdtd.getDay();
@@ -60,7 +61,7 @@ public class DatabaseQuery extends DatabaseObject{
 
 //                Date reminderDate = convertStringToDate(startDate);
 //                Date end = convertStringToDate(endDate);
-//                dDate.setTime(reminderDate);
+                dDate.setTime(startdtd);
                 int dDay = dDate.get(Calendar.DAY_OF_MONTH);
                 int dMonth = dDate.get(Calendar.MONTH) + 1;
                 int dYear = dDate.get(Calendar.YEAR);
