@@ -6,21 +6,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ImageView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.yellowobjects.R;
-import com.example.yellowobjects.database.DatabaseQuery;
-import com.example.yellowobjects.ui.poster_page.Event;
+import com.example.yellowobjects.ui.database.DatabaseQuery;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

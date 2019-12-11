@@ -1,7 +1,8 @@
-package com.example.yellowobjects;
+package com.example.yellowobjects.ui;
 
 import android.os.Bundle;
 
+import com.example.yellowobjects.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
