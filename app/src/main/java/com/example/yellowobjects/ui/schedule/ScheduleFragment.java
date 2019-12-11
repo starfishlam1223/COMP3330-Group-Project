@@ -127,7 +127,7 @@ public class ScheduleFragment extends Fragment {
         long timeDifference = end.getTime() - start.getTime();
         Calendar Cal = Calendar.getInstance();
         Cal.setTimeInMillis(timeDifference);
-        int hours = Cal.get(Calendar.HOUR);
+        int hours = Cal.get(Calendar.HOUR)-8;
         int minutes = Cal.get(Calendar.MINUTE);
         return (hours * 60) + ((minutes * 60) / 100);
     }
@@ -148,11 +148,11 @@ public class ScheduleFragment extends Fragment {
         TextView mEventView = new TextView(ScheduleFragment.this.getContext());
         RelativeLayout.LayoutParams lParam = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         lParam.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-        lParam.topMargin = topMargin * 2;
+        lParam.topMargin = topMargin * 3;
         lParam.leftMargin = 24;
         mEventView.setLayoutParams(lParam);
         mEventView.setPadding(24, 0, 24, 0);
-        mEventView.setHeight(height * 2);
+        mEventView.setHeight(height * 3);
         mEventView.setGravity(0x11);
         mEventView.setTextColor(Color.parseColor("#ffffff"));
         mEventView.setText(title);
