@@ -44,10 +44,12 @@ public class ScheduleFragment extends Fragment {
         query = new DatabaseQuery(this.getContext());
         layout = (RelativeLayout) root.findViewById(R.id.left_event_column);
         eventIndex = layout.getChildCount();
+        Log.d("eventIndex", String.valueOf(layout.getChildCount()));
         displayDate = DateFormat.getDateInstance(DateFormat.LONG).format(calendar.getTime());
         textViewDate = (TextView) root.findViewById(R.id.display_current_date);
         textViewDate.setText(displayDate);
         displayEvents();
+        Log.d("eventIndex", String.valueOf(layout.getChildCount()));
         ImageView prevDay = (ImageView) root.findViewById(R.id.previous_day);
         prevDay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -69,18 +71,30 @@ public class ScheduleFragment extends Fragment {
         return root;
     }
     private void previousDay(){
-        layout.removeViewAt(eventIndex-1);
+        if (layout.getChildCount() > eventIndex) {
+            for (int i = eventIndex - 1; i < layout.getChildCount(); i++) {
+                layout.removeViewAt(i);
+            }
+        }
+        Log.d("eventIndex", String.valueOf(layout.getChildCount()));
         calendar.add(Calendar.DAY_OF_MONTH, -1);
         displayDate = DateFormat.getDateInstance(DateFormat.LONG).format(calendar.getTime());
         textViewDate.setText(displayDate);
         displayEvents();
+        Log.d("eventIndex", String.valueOf(layout.getChildCount()));
     }
     private void nextDay(){
-        layout.removeViewAt(eventIndex-1);
+        if (layout.getChildCount() > eventIndex) {
+            for (int i = eventIndex - 1; i < layout.getChildCount(); i++) {
+                layout.removeViewAt(i);
+            }
+        }
+        Log.d("eventIndex", String.valueOf(layout.getChildCount()));
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         displayDate = DateFormat.getDateInstance(DateFormat.LONG).format(calendar.getTime());
         textViewDate.setText(displayDate);
         displayEvents();
+        Log.d("eventIndex", String.valueOf(layout.getChildCount()));
     }
     private void displayEvents(){
         Date cDate = calendar.getTime();
@@ -104,6 +118,7 @@ public class ScheduleFragment extends Fragment {
             int eventBlockHeight = getEventTimeFrame(startDate, endDate);
             Log.d(ScheduleFragment.class.getSimpleName(), "Height " + eventBlockHeight);
             displayEventSection(startDate, eventBlockHeight, title);
+            Log.d("Notif", "displayEvent called!");
         }
     }
     private int getEventTimeFrame(Date start, Date end){
@@ -125,6 +140,7 @@ public class ScheduleFragment extends Fragment {
         int topViewMargin = (hours * 60) + ((minutes * 60) / 100);
         Log.d(ScheduleFragment.class.getSimpleName(), "Margin top " + topViewMargin);
         createEventView(topViewMargin, height, title);
+        Log.d("Notif", "displayEventSection called!");
     }
     private void createEventView(int topMargin, int height, String title){
         TextView mEventView = new TextView(ScheduleFragment.this.getContext());
@@ -139,6 +155,8 @@ public class ScheduleFragment extends Fragment {
         mEventView.setTextColor(Color.parseColor("#ffffff"));
         mEventView.setText(title);
         mEventView.setBackgroundColor(Color.parseColor("#3F51B5"));
-        layout.addView(mEventView, eventIndex - 1);
+        layout.addView(mEventView, layout.getChildCount() - 1);
+        Log.d("Notif", "createEventView called!");
+        Log.d("Notif", "New view added!");
     }
 }
