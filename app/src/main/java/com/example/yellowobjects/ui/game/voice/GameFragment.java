@@ -25,10 +25,9 @@ import com.example.yellowobjects.R;
 public class GameFragment extends Fragment {
 
     public static final float BASE = 8000f;
-    public static final int TARGETTIME = 7770;
+    public static final int MAXTIME = 7770;
     public static int currentTime = 0;
 
-    private String currentOutFile;
     private MediaRecorder myAudioRecorder;
 
     private boolean isRecording = false;
@@ -144,8 +143,8 @@ public class GameFragment extends Fragment {
                 visualizerView.addAmplitude(x);
                 if(x>((int)GameFragment.BASE)){
                     GameFragment.currentTime += REPEAT_INTERVAL;
-                    float time = 7.77f;
-                    if(GameFragment.currentTime<7700)
+                    float time = MAXTIME / 1000f;
+                    if(GameFragment.currentTime< GameFragment.MAXTIME)
                         time = GameFragment.currentTime/1000f;
                     timeDisplay.setText(String.format("%.2f", time)+"s");
                 }

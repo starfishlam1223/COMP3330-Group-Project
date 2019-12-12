@@ -63,9 +63,17 @@ public class VolumeVisualizerView extends View {
                     GameFragment.maria.setImageResource(R.drawable.fat_ma_b);
                     fatMaB = true;
                 }
+                else{
+                    float scale = 1+20*((float)Math.pow((((float)GameFragment.currentTime)/((float)GameFragment.MAXTIME)),5));
+                    GameFragment.maria.setScaleX(scale);
+                    GameFragment.maria.setScaleY(scale);
+                }
             }
             else if(fatMaB){
                 GameFragment.maria.setImageResource(R.drawable.fat_ma_a);
+                float scale = 1;
+                GameFragment.maria.setScaleX(scale);
+                GameFragment.maria.setScaleY(scale);
                 fatMaB = false;
             }
         }

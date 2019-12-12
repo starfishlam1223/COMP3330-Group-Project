@@ -14,8 +14,12 @@
         android:layout_width="match_parent"
         android:layout_height="275dp"
         android:layout_alignParentTop="true"
-        ripple:srcCompat="@drawable/fat_ma_a"
-        android:contentDescription="Fat Ma Cute Cute Pic" />
+        android:adjustViewBounds="false"
+        android:contentDescription="@string/fat_ma_cute_cute_pic"
+        android:scaleType="centerCrop"
+        android:scaleX="1"
+        android:scaleY="1"
+        ripple:srcCompat="@drawable/fat_ma_a" />
 
 
     <FrameLayout
@@ -45,15 +49,16 @@
 
     <TextView
         android:id="@+id/txt_description"
-        android:layout_below="@+id/frame1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/frame1"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
         android:padding="5dp"
         android:text="@string/description_touch_below"
         android:textAlignment="center"
         android:textColor="@color/colorBlack"
+        android:background="@android:color/white"
         android:textSize="25sp"
         android:textStyle="bold" />
 
@@ -63,10 +68,12 @@
         android:layout_below="@+id/txt_description"
         android:padding="0dp"
         android:background="@android:color/white" >
+
         <com.example.yellowobjects.ui.game.voice.VolumeVisualizerView
             android:id="@+id/visualizer"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
+            android:alpha="1"
             android:background="@android:color/background_dark"
             android:clickable="true" />
     </FrameLayout>
