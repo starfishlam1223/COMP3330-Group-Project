@@ -38,5 +38,7 @@
     <string name="time_24pm">24 pm</string>
     <string name="birth_day">I am going to birthday party</string>
     <string name="current_day_date">8 October, 2016</string>
-    <string name="scream_like_maria_cordero">Scream like Maria Cordero!</string>
+    <string name="description_scream">Scream like Maria Cordero!</string>
+    <string name="description_touch_below">Touch below to start.</string>
+    <string name="zero_sec"></string>
 </resources>

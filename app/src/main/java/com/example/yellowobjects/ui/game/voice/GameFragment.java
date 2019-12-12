@@ -1,8 +1,6 @@
 package com.example.yellowobjects.ui.game.voice;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -14,13 +12,13 @@ import android.os.Handler;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.yellowobjects.R;
 
@@ -37,6 +35,9 @@ public class GameFragment extends Fragment {
     private ProgressView progressView;
     private VolumeVisualizerView visualizerView;
     private View rootView;
+    public static ImageView maria;
+    public TextView description;
+    public TextView timeDisplay;
 
     private boolean doubleBackToExitPressedOnce;
     private Handler mHandler = new Handler();
@@ -52,6 +53,18 @@ public class GameFragment extends Fragment {
 
     private Handler handler = new Handler();
 
+    private void resetTime(){
+        timeDisplay.setText(R.string.zero_sec);
+        GameFragment.currentTime = 0;
+    }
+    private void recordPause(){
+        visualizerView.clear();
+        resetTime();
+        description.setText(R.string.description_touch_below);
+        isRecording = false;
+        visualizerView.invalidate();
+        progressView.invalidate();
+    }
     private void recordStart(){
         if(!isRecording){
             myAudioRecorder = new MediaRecorder();
@@ -63,11 +76,12 @@ public class GameFragment extends Fragment {
             try {
                 myAudioRecorder.prepare();
                 myAudioRecorder.start();
+                description.setText(R.string.description_scream);
                 isRecording = true;
                 handler.post(updateVisualizer);
             }
             catch (IOException e) {
-                isRecording = false;
+                recordPause();
             }
         }
     }
@@ -80,6 +94,9 @@ public class GameFragment extends Fragment {
 
         progressView = (ProgressView) rootView.findViewById(R.id.progress);
         visualizerView = (VolumeVisualizerView) rootView.findViewById(R.id.visualizer);
+        maria = (ImageView) rootView.findViewById(R.id.fat);
+        description = (TextView) rootView.findViewById(R.id.txt_description);
+        timeDisplay = (TextView) rootView.findViewById(R.id.txt_time);
 
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED)
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.RECORD_AUDIO}, 10);
@@ -109,11 +126,11 @@ public class GameFragment extends Fragment {
                     myAudioRecorder.stop();
                     myAudioRecorder.release();
                     myAudioRecorder = null;
+                    recordPause();
                     handler.removeCallbacks(updateVisualizer);
-                    isRecording = false;
                 }
             } catch (Exception e) {
-                isRecording = false;
+                recordPause();
                 handler.removeCallbacks(updateVisualizer);
             }
         }
@@ -125,9 +142,14 @@ public class GameFragment extends Fragment {
             if (isRecording){
                 int x = myAudioRecorder.getMaxAmplitude();
                 visualizerView.addAmplitude(x);
-                if(x>((int)GameFragment.BASE))
+                if(x>((int)GameFragment.BASE)){
                     GameFragment.currentTime += REPEAT_INTERVAL;
-                else GameFragment.currentTime = 0;
+                    float time = 7.77f;
+                    if(GameFragment.currentTime<7700)
+                        time = GameFragment.currentTime/1000f;
+                    timeDisplay.setText(String.format("%.2f", time)+"s");
+                }
+                else resetTime();
                 visualizerView.invalidate();
                 progressView.invalidate();
                 handler.postDelayed(this, REPEAT_INTERVAL);

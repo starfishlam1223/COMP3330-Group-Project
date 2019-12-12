@@ -10,6 +10,8 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.example.yellowobjects.R;
+
 public class VolumeVisualizerView extends View {
     private static final int LINE_WIDTH = 1;
     private static final int LINE_SCALE = 15;
@@ -49,13 +51,23 @@ public class VolumeVisualizerView extends View {
             amplitudes.remove(0);
     } 
 
+    boolean fatMaB = false;
     @Override
     public void onDraw(Canvas canvas) {
         canvas.drawColor(Color.BLACK);
         if(amplitudes.size()>0){
             float lastAmplitude = amplitudes.get(amplitudes.size()-1);
-            if(lastAmplitude>=GameFragment.BASE)
+            if(lastAmplitude>=GameFragment.BASE){
                 canvas.drawColor(Color.YELLOW);
+                if(!fatMaB){
+                    GameFragment.maria.setImageResource(R.drawable.fat_ma_b);
+                    fatMaB = true;
+                }
+            }
+            else if(fatMaB){
+                GameFragment.maria.setImageResource(R.drawable.fat_ma_a);
+                fatMaB = false;
+            }
         }
 
         int middle = height / 2;
