@@ -33,13 +33,13 @@ public class GameFragment extends Fragment {
     public static int currentTime = 0;
 
     public MediaRecorder myAudioRecorder = null;
-
     private boolean isRecording = false;
+
     private ProgressView progressView;
     private VolumeVisualizerView visualizerView;
     private View rootView;
     public static ImageView maria;
-    public static ImageView bigpic;
+    public ImageView bigpic;
     public TextView description;
     public TextView timeDisplay;
 
@@ -109,13 +109,16 @@ public class GameFragment extends Fragment {
         }
     }
 
+    public boolean alertShown = false;
     public static boolean bigHeadShown = false;
-    private static void bigHeadAppear(){
-        GameFragment.bigpic.setVisibility(View.VISIBLE);
+    private void bigHeadAppear(){
+        bigpic.setVisibility(View.VISIBLE);
+        alertShown = true;
         GameFragment.bigHeadShown = true;
     }
-    private static void bigHeadDisappear(){
-        GameFragment.bigpic.setVisibility(View.GONE);
+    private void bigHeadDisappear(){
+        bigpic.setVisibility(View.GONE);
+        alertShown = false;
         GameFragment.bigHeadShown = false;
     }
 
@@ -191,14 +194,16 @@ public class GameFragment extends Fragment {
     Runnable updateVisualizer = new Runnable(){
         float lastScales[] = {1,1,1};
         int ptr = 0;
+        long startTime = System.currentTimeMillis();
         @Override
         public void run() {
             if (isRecording){
+                System.out.println(System.currentTimeMillis());
                 int x = myAudioRecorder.getMaxAmplitude();
                 if(GameFragment.bigHeadShown){
                     float newScale = 1f + ((float)Math.pow((x/15000f),3));
                     float scale = (newScale+lastScales[0]+lastScales[1]+lastScales[2])/4;
-                    GameFragment.bigpic.setScaleX(scale);
+                    bigpic.setScaleX(scale);
                     bigpic.setScaleY(scale);
                     lastScales[ptr] = scale;
                     ptr = (ptr +1) % 3;
@@ -206,26 +211,32 @@ public class GameFragment extends Fragment {
                 visualizerView.addAmplitude(x);
                 if(x>((int)GameFragment.BASE)){
                     float time = MAXTIME / 1000f;
-                    GameFragment.currentTime += REPEAT_INTERVAL;
+                    GameFragment.currentTime = (int)(System.currentTimeMillis()-startTime);
                     System.out.println(GameFragment.currentTime+"s");
-                    if(GameFragment.currentTime==5900){
-                        if(!GameFragment.bigHeadShown){
+
+                    if(GameFragment.currentTime >= 5900){
+                        if(!alertShown &&!GameFragment.bigHeadShown){
                             if(mpSiachandelier_A!=null)
                                 mpSiachandelier_A.start();
+                            alertShown = true;
                         }
                     }
+                    else alertShown = false;
                     if(GameFragment.currentTime< GameFragment.MAXTIME)
                         time = GameFragment.currentTime/1000f;
                     else if(GameFragment.currentTime >= GameFragment.MAXTIME){
                         if(!GameFragment.bigHeadShown){
-                            GameFragment.bigHeadAppear();
+                            bigHeadAppear();
                             if(mpSiachandelier_B!=null)
                                 mpSiachandelier_B.start();
                         }
                     }
                     timeDisplay.setText(String.format("%.2f", time)+"s");
                 }
-                else resetTime();
+                else{
+                    startTime = System.currentTimeMillis();
+                    resetTime();
+                }
                 visualizerView.invalidate();
                 progressView.invalidate();
             }

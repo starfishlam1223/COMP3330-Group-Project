@@ -13,7 +13,7 @@ import android.view.View;
 import com.example.yellowobjects.R;
 
 public class VolumeVisualizerView extends View {
-    private static final int LINE_WIDTH = 3;
+    private static final int LINE_WIDTH = 5;
     private static final int LINE_SCALE = 15;
     private List<Float> amplitudes = null;
     private int width;
