@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/navigation_schedule"
-        android:name="com.example.yellowobjects.ui.schedule.ScheduleFragment"
+        android:name="hk.hkucs.yellowobjects.ui.schedule.ScheduleFragment"
         android:label="@string/title_schedule"
         tools:layout="@layout/fragment_schedule" />
 
     <fragment
         android:id="@+id/navigation_poster_page"
-        android:name="com.example.yellowobjects.ui.poster_page.PosterPageFragment"
+        android:name="hk.hkucs.yellowobjects.ui.poster_page.PosterPageFragment"
         android:label="@string/title_poster_page"
         tools:layout="@layout/fragment_poster_page" />
 
     <fragment
         android:id="@+id/navigation_ybmap"
-        android:name="com.example.yellowobjects.ui.ybmap.YBMapFragment"
+        android:name="hk.hkucs.yellowobjects.ui.ybmap.YBMapFragment"
         android:label="@string/title_ybmap"
         tools:layout="@layout/fragment_ybmap" />
 
     <fragment
         android:id="@+id/navigation_game"
-        android:name="com.example.yellowobjects.ui.game.voice.GameFragment"
+        android:name="hk.hkucs.yellowobjects.ui.game.GameFragment"
         android:label="@string/title_game"
         tools:layout="@layout/fragment_game" />
 </navigation>

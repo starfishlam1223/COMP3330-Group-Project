@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginTop="20dp"
     android:orientation="vertical"
-    tools:context=".ui.poster_page.EventInfo">
+    tools:context="hk.hkucs.yellowobjects.ui.poster_page.EventInfo">
 
     <ScrollView
         android:layout_width="match_parent"

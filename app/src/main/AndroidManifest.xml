@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.yellowobjects">
+    package="hk.hkucs.yellowobjects">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -14,17 +14,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.ybmap.Result"></activity>
-        <activity android:name=".ui.ybmap.Answer" />
+        <activity android:name="hk.hkucs.yellowobjects.ui.ybmap.Result"></activity>
+        <activity android:name="hk.hkucs.yellowobjects.ui.ybmap.Answer" />
         <activity
-            android:name=".ui.ybmap.Question"
+            android:name="hk.hkucs.yellowobjects.ui.ybmap.Question"
             android:label="@string/title_activity_question"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.schedule.UserEventInfo" />
-        <activity android:name=".ui.schedule.AddEvent" />
-        <activity android:name=".ui.poster_page.EventInfo" />
+        <activity android:name="hk.hkucs.yellowobjects.ui.schedule.UserEventInfo" />
+        <activity android:name="hk.hkucs.yellowobjects.ui.schedule.AddEvent" />
+        <activity android:name="hk.hkucs.yellowobjects.ui.poster_page.EventInfo" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name="hk.hkucs.yellowobjects.ui.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
