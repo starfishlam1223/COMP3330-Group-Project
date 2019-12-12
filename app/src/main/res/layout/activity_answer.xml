@@ -12,11 +12,11 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/questionCount"
+            android:id="@+id/result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/title_activity_question"
+            android:text="Result"
             android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
 
         <ImageView
@@ -42,26 +42,19 @@
             android:text="Is it yellow or is it blue?"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/answer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Answer"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
-            <Button
-                android:id="@+id/yButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#FFEB3B"
-                android:text="Yellow" />
+        <Button
+            android:id="@+id/cButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Continue" />
 
-            <Button
-                android:id="@+id/bButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#3F51B5"
-                android:text="Blue" />
-        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
