@@ -181,13 +181,11 @@ public class GameFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        System.out.println(123312313);
         cleanup();
     }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        System.out.println(986767866);
         cleanup();
     }
 
