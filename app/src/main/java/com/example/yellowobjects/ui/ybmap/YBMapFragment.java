@@ -1,11 +1,13 @@
 package com.example.yellowobjects.ui.ybmap;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -15,11 +17,13 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.yellowobjects.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class YBMapFragment extends Fragment {
 
     private YBMapViewModel YBMapViewModel;
     private WebView webView;
+    private FloatingActionButton ybQuiz;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -35,6 +39,14 @@ public class YBMapFragment extends Fragment {
             @Override
             public void onChanged(@Nullable String s) {
                 //textView.setText(s);
+            }
+        });
+
+        ybQuiz = root.findViewById(R.id.ybQuiz);
+        ybQuiz.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent question = new Intent(getContext(), Question.class);
+                startActivity(question);
             }
         });
 

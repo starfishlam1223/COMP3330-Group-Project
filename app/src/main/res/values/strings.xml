@@ -42,4 +42,5 @@
     <string name="description_touch_below">Touch below to start.</string>
     <string name="zero_sec"></string>
     <string name="fat_ma_cute_cute_pic">Fat Ma Cute Cute Pic</string>
+    <string name="title_activity_question">Question</string>
 </resources>
