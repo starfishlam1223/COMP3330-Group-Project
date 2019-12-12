@@ -1,6 +1,8 @@
 package com.example.yellowobjects.ui.game.voice;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -24,19 +26,20 @@ import android.widget.TextView;
 import com.example.yellowobjects.R;
 
 public class GameFragment extends Fragment {
+    public static GameFragment lastFragment = null;
 
-    public static final float BASE = 8000f;
+    public static final float BASE = 7770f;
     public static final int MAXTIME = 7770;
     public static int currentTime = 0;
 
-    private MediaRecorder myAudioRecorder;
+    public MediaRecorder myAudioRecorder = null;
 
     private boolean isRecording = false;
     private ProgressView progressView;
     private VolumeVisualizerView visualizerView;
     private View rootView;
     public static ImageView maria;
-    public ImageView bigpic;
+    public static ImageView bigpic;
     public TextView description;
     public TextView timeDisplay;
 
@@ -61,18 +64,16 @@ public class GameFragment extends Fragment {
     }
     private void cleanup(){
         if (isRecording) {
-            try {
-                if (myAudioRecorder != null) {
+            if (myAudioRecorder != null) {
+                try {
                     myAudioRecorder.stop();
                     myAudioRecorder.release();
-                    myAudioRecorder = null;
-                    recordPause();
-                    handler.removeCallbacks(updateVisualizer);
+                } catch (Exception e) {
                 }
-            } catch (Exception e) {
-                recordPause();
-                handler.removeCallbacks(updateVisualizer);
+                myAudioRecorder = null;
             }
+            recordPause();
+            handler.removeCallbacks(updateVisualizer);
         }
         if (mpSiachandelier_A != null){
             mpSiachandelier_A.release();
@@ -84,6 +85,7 @@ public class GameFragment extends Fragment {
         }
         bigHeadDisappear();
     }
+
     private void recordStart(){
         if(!isRecording){
             myAudioRecorder = new MediaRecorder();
@@ -91,13 +93,13 @@ public class GameFragment extends Fragment {
             myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
             myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
             myAudioRecorder.setOutputFile("/dev/null");
-            handler.post(updateVisualizer);
             try {
                 myAudioRecorder.prepare();
                 myAudioRecorder.start();
                 description.setText(R.string.description_scream);
                 isRecording = true;
                 handler.post(updateVisualizer);
+                //handler.postDelayed(updateVisualizer, REPEAT_INTERVAL);
             }
             catch (IOException e) {
                 recordPause();
@@ -108,18 +110,21 @@ public class GameFragment extends Fragment {
     }
 
     public static boolean bigHeadShown = false;
-    private void bigHeadAppear(){
-        bigpic.setVisibility(View.VISIBLE);
-        bigHeadShown = true;
+    private static void bigHeadAppear(){
+        GameFragment.bigpic.setVisibility(View.VISIBLE);
+        GameFragment.bigHeadShown = true;
     }
-    private void bigHeadDisappear(){
-        bigpic.setVisibility(View.GONE);
-        bigHeadShown = false;
+    private static void bigHeadDisappear(){
+        GameFragment.bigpic.setVisibility(View.GONE);
+        GameFragment.bigHeadShown = false;
     }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if(GameFragment.lastFragment!=null)
+            GameFragment.lastFragment.cleanup();
+        GameFragment.lastFragment = this;
 
         rootView = inflater.inflate(R.layout.activity_game, container,false);
 
@@ -173,25 +178,27 @@ public class GameFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        System.out.println(123312313);
         cleanup();
     }
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
+        System.out.println(986767866);
         cleanup();
     }
 
-    float lastScales[] = {1,1,1};
-    int ptr = 0;
-    Runnable updateVisualizer = new Runnable() {
+    Runnable updateVisualizer = new Runnable(){
+        float lastScales[] = {1,1,1};
+        int ptr = 0;
         @Override
         public void run() {
             if (isRecording){
                 int x = myAudioRecorder.getMaxAmplitude();
-                if(bigHeadShown){
+                if(GameFragment.bigHeadShown){
                     float newScale = 1f + ((float)Math.pow((x/15000f),3));
                     float scale = (newScale+lastScales[0]+lastScales[1]+lastScales[2])/4;
-                    bigpic.setScaleX(scale);
+                    GameFragment.bigpic.setScaleX(scale);
                     bigpic.setScaleY(scale);
                     lastScales[ptr] = scale;
                     ptr = (ptr +1) % 3;
@@ -200,17 +207,18 @@ public class GameFragment extends Fragment {
                 if(x>((int)GameFragment.BASE)){
                     float time = MAXTIME / 1000f;
                     GameFragment.currentTime += REPEAT_INTERVAL;
+                    System.out.println(GameFragment.currentTime+"s");
                     if(GameFragment.currentTime==5900){
-                        if(!bigHeadShown){
+                        if(!GameFragment.bigHeadShown){
                             if(mpSiachandelier_A!=null)
                                 mpSiachandelier_A.start();
                         }
                     }
                     if(GameFragment.currentTime< GameFragment.MAXTIME)
                         time = GameFragment.currentTime/1000f;
-                    else if(GameFragment.currentTime == GameFragment.MAXTIME){
-                        if(!bigHeadShown){
-                            bigHeadAppear();
+                    else if(GameFragment.currentTime >= GameFragment.MAXTIME){
+                        if(!GameFragment.bigHeadShown){
+                            GameFragment.bigHeadAppear();
                             if(mpSiachandelier_B!=null)
                                 mpSiachandelier_B.start();
                         }
@@ -220,8 +228,8 @@ public class GameFragment extends Fragment {
                 else resetTime();
                 visualizerView.invalidate();
                 progressView.invalidate();
-                handler.postDelayed(this, REPEAT_INTERVAL);
             }
+            handler.postDelayed(updateVisualizer, REPEAT_INTERVAL);
         }
     };
 }

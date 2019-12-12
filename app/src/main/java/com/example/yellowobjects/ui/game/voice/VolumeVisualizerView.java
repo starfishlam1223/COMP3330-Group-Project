@@ -13,9 +13,9 @@ import android.view.View;
 import com.example.yellowobjects.R;
 
 public class VolumeVisualizerView extends View {
-    private static final int LINE_WIDTH = 1;
+    private static final int LINE_WIDTH = 3;
     private static final int LINE_SCALE = 15;
-    private List<Float> amplitudes;
+    private List<Float> amplitudes = null;
     private int width;
     private int height;
     private Paint basePaint;
@@ -40,7 +40,7 @@ public class VolumeVisualizerView extends View {
 
     public void clear() {
         amplitudes.clear();
-    } 
+    }
 
     public void addAmplitude(float amplitude) {
         if(amplitude<50f)
