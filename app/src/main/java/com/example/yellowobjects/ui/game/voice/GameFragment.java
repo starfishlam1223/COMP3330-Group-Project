@@ -210,7 +210,7 @@ public class GameFragment extends Fragment {
                     float time = MAXTIME / 1000f;
                     GameFragment.currentTime = (int)(System.currentTimeMillis()-startTime);
 
-                    if(GameFragment.currentTime >= 5900){
+                    if(GameFragment.currentTime >= 6100){
                         if(!alertShown &&!GameFragment.bigHeadShown){
                             if(mpSiachandelier_A!=null)
                                 mpSiachandelier_A.start();

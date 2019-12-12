@@ -52,29 +52,39 @@ public class VolumeVisualizerView extends View {
     } 
 
     boolean fatMaB = false;
+    int chance = 10;
     @Override
     public void onDraw(Canvas canvas) {
         canvas.drawColor(Color.BLACK);
         if(amplitudes.size()>0){
             float lastAmplitude = amplitudes.get(amplitudes.size()-1);
-            if(lastAmplitude>=GameFragment.BASE){
+            if(fatMaB){
                 canvas.drawColor(Color.YELLOW);
-                if(!fatMaB){
-                    GameFragment.maria.setImageResource(R.drawable.fat_ma_b);
-                    fatMaB = true;
-                }
-                else{
+                if(lastAmplitude>=GameFragment.BASE){
                     float scale = 1+20*((float)Math.pow((((float)GameFragment.currentTime)/((float)GameFragment.MAXTIME)),5));
                     GameFragment.maria.setScaleX(scale);
                     GameFragment.maria.setScaleY(scale);
+                    chance = 10;
+                }
+                else{
+                    if(chance>0)
+                        chance--;
+                    else{
+                        GameFragment.maria.setImageResource(R.drawable.fat_ma_a);
+                        float scale = 1;
+                        GameFragment.maria.setScaleX(scale);
+                        GameFragment.maria.setScaleY(scale);
+                        fatMaB = false;
+                    }
                 }
             }
-            else if(fatMaB){
-                GameFragment.maria.setImageResource(R.drawable.fat_ma_a);
-                float scale = 1;
-                GameFragment.maria.setScaleX(scale);
-                GameFragment.maria.setScaleY(scale);
-                fatMaB = false;
+            else{
+                if(lastAmplitude>=GameFragment.BASE){
+                    canvas.drawColor(Color.YELLOW);
+                    GameFragment.maria.setImageResource(R.drawable.fat_ma_b);
+                    fatMaB = true;
+                    chance = 10;
+                }
             }
         }
 
