@@ -210,7 +210,6 @@ public class GameFragment extends Fragment {
                 if(x>((int)GameFragment.BASE)){
                     float time = MAXTIME / 1000f;
                     GameFragment.currentTime = (int)(System.currentTimeMillis()-startTime);
-                    System.out.println(GameFragment.currentTime+"s");
 
                     if(GameFragment.currentTime >= 5900){
                         if(!alertShown &&!GameFragment.bigHeadShown){
