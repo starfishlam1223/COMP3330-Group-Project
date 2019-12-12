@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,22 +27,23 @@ public class Question extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("resultCode", String.valueOf(requestCode));
         if (requestCode == 0) {
             if (resultCode == RESULT_OK) {
                 qList.answer(true);
             } else {
                 qList.answer(false);
             }
+
+            if (qList.currentQuestion > 10) {
+                Intent result = new Intent(ctx, Result.class);
+                result.putExtra("score", qList.getCorrectCount());
+                startActivityForResult(result, 1);
+            } else {
+                showNewQuestion(ctx);
+            }
         } else if (requestCode == 1) {
             finish();
-        }
-
-        if (qList.currentQuestion > 10) {
-            Intent result = new Intent(ctx, Result.class);
-            result.putExtra("score", qList.getCorrectCount());
-            startActivityForResult(result, 1);
-        } else {
-            showNewQuestion(ctx);
         }
     }
 
