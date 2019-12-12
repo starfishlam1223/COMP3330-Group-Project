@@ -16,6 +16,7 @@
         android:layout_alignParentTop="true"
         android:adjustViewBounds="false"
         android:contentDescription="@string/fat_ma_cute_cute_pic"
+        android:requiresFadingEdge="horizontal|vertical"
         android:scaleType="centerCrop"
         android:scaleX="1"
         android:scaleY="1"

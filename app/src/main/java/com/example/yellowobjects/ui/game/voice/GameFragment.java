@@ -5,6 +5,7 @@ import java.io.IOException;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Handler;
@@ -37,6 +38,9 @@ public class GameFragment extends Fragment {
     public static ImageView maria;
     public TextView description;
     public TextView timeDisplay;
+
+    MediaPlayer mpSiachandelier_A;
+    MediaPlayer mpSiachandelier_B;
 
     private boolean doubleBackToExitPressedOnce;
     private Handler mHandler = new Handler();
@@ -82,6 +86,8 @@ public class GameFragment extends Fragment {
             catch (IOException e) {
                 recordPause();
             }
+            mpSiachandelier_A = MediaPlayer.create(getContext(), R.raw.siachandelier_a);
+            mpSiachandelier_B = MediaPlayer.create(getContext(), R.raw.siachandelier_b);
         }
     }
 
@@ -112,16 +118,14 @@ public class GameFragment extends Fragment {
 
         rootView.setFocusableInTouchMode(true);
         rootView.requestFocus();
-        return rootView;
 
+        return rootView;
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
+    private void cleanup(){
         if (isRecording) {
             try {
-                if (null != myAudioRecorder) {
+                if (myAudioRecorder != null) {
                     myAudioRecorder.stop();
                     myAudioRecorder.release();
                     myAudioRecorder = null;
@@ -132,7 +136,25 @@ public class GameFragment extends Fragment {
                 recordPause();
                 handler.removeCallbacks(updateVisualizer);
             }
+            if (mpSiachandelier_A != null){
+                mpSiachandelier_A.release();
+                mpSiachandelier_A = null;
+            }
+            if (mpSiachandelier_B != null){
+                mpSiachandelier_B.release();
+                mpSiachandelier_B = null;
+            }
         }
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        cleanup();
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        cleanup();
     }
 
     Runnable updateVisualizer = new Runnable() {
@@ -143,9 +165,17 @@ public class GameFragment extends Fragment {
                 visualizerView.addAmplitude(x);
                 if(x>((int)GameFragment.BASE)){
                     GameFragment.currentTime += REPEAT_INTERVAL;
+                    if(GameFragment.currentTime==5900){
+                        if(mpSiachandelier_A!=null)
+                            mpSiachandelier_A.start();
+                    }
                     float time = MAXTIME / 1000f;
                     if(GameFragment.currentTime< GameFragment.MAXTIME)
                         time = GameFragment.currentTime/1000f;
+                    else if(GameFragment.currentTime == GameFragment.MAXTIME){
+                        if(mpSiachandelier_B!=null)
+                            mpSiachandelier_B.start();
+                    }
                     timeDisplay.setText(String.format("%.2f", time)+"s");
                 }
                 else resetTime();
