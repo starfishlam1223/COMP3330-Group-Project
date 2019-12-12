@@ -132,7 +132,7 @@ public class PosterPageFragment extends ListFragment implements AdapterView.OnIt
                 starti = Integer.parseInt(startdt.getString("minute"));
                 starts = Integer.parseInt(startdt.getString("second"));
 
-                JSONObject enddt = jsonEvent.getJSONObject("startdt");
+                JSONObject enddt = jsonEvent.getJSONObject("enddt");
                 endy = Integer.parseInt(enddt.getString("year"));
                 endm = Integer.parseInt(enddt.getString("month"));
                 endd = Integer.parseInt(enddt.getString("day"));

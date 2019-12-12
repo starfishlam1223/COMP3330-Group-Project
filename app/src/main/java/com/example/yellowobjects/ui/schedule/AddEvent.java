@@ -45,7 +45,6 @@ public class AddEvent extends AppCompatActivity {
     private EditText desc;
 
     private Button add_event;
-    private Button reset_db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +72,6 @@ public class AddEvent extends AppCompatActivity {
         ends = findViewById(R.id.ends);
 
         add_event = findViewById(R.id.add_button);
-        reset_db = findViewById(R.id.reset_database);
 
         Intent parent = getIntent();
         String titleStrEx = parent.getStringExtra("title");
@@ -193,12 +191,6 @@ public class AddEvent extends AppCompatActivity {
                         Toast.makeText(view.getContext(), "Wrong numbers in the date and time!", Toast.LENGTH_LONG).show();
                     }
                 }
-            }
-        });
-
-        reset_db.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                query.resetDB();
             }
         });
     }

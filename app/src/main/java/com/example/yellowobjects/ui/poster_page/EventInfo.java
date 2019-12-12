@@ -138,7 +138,7 @@ public class EventInfo extends AppCompatActivity {
             String startdtStr = syearStr + "-" + smonthStr + "-" + sdayStr + " " + shourStr + ":" + sminuteStr + ":" + ssecondStr;
             startdt.setText(startdtStr);
 
-            JSONObject jenddt = jsonEvent.getJSONObject("startdt");
+            JSONObject jenddt = jsonEvent.getJSONObject("enddt");
             eyearStr = jenddt.getString("year");
             emonthStr = jenddt.getString("month");
             edayStr = jenddt.getString("day");
