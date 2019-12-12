@@ -48,6 +48,16 @@ public class ScheduleFragment extends Fragment {
                 displayEvents();
             }
         }
+
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                while (layout.getChildCount() > eventIndex) {
+                    layout.removeViewAt(eventIndex - 1);
+                }
+
+                displayEvents();
+            }
+        }
     }
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -181,6 +191,7 @@ public class ScheduleFragment extends Fragment {
         lParam.leftMargin = 24;
         mEventView.setLayoutParams(lParam);
         mEventView.setPadding(24, 0, 24, 0);
+        mEventView.setWidth((int) (100 * dp));
         mEventView.setHeight((int) heightInPx);
         mEventView.setGravity(0x11);
         mEventView.setTextColor(Color.parseColor("#ffffff"));
@@ -188,11 +199,9 @@ public class ScheduleFragment extends Fragment {
         mEventView.setBackgroundColor(Color.parseColor("#3F51B5"));
         mEventView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                while (layout.getChildCount() > eventIndex) {
-                    layout.removeViewAt(eventIndex - 1);
-                }
-                query.deleteEvent(id);
-                displayEvents();
+                Intent event_info = new Intent(getContext(), UserEventInfo.class);
+                event_info.putExtra("id", id);
+                startActivityForResult(event_info, 1);
             }
         });
         layout.addView(mEventView, layout.getChildCount() - 1);
