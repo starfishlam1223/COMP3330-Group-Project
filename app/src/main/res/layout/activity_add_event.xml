@@ -288,10 +288,4 @@
         android:layout_height="wrap_content"
         android:text="Add event" />
 
-    <Button
-        android:id="@+id/reset_database"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Reset database" />
-
 </LinearLayout>
