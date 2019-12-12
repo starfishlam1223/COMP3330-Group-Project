@@ -162,6 +162,9 @@ public class ScheduleFragment extends Fragment {
         Cal.setTimeInMillis(timeDifference);
         int hours = Cal.get(Calendar.HOUR)-8;
         int minutes = Cal.get(Calendar.MINUTE);
+        Log.d(ScheduleFragment.class.getSimpleName(), "Difference: " + Cal.getTime());
+        Log.d(ScheduleFragment.class.getSimpleName(), "Hour height: " + hours);
+        Log.d(ScheduleFragment.class.getSimpleName(), "Minutes height: " + minutes);
         return (hours * 60) + minutes;
     }
     private void displayEventSection(Date date, int height, int id, String title){
