@@ -9,7 +9,8 @@
         android:roundIcon="@drawable/ic_yellow_objects_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.schedule.AddEvent"></activity>
+        <activity android:name=".ui.schedule.UserEventInfo"></activity>
+        <activity android:name=".ui.schedule.AddEvent" />
         <activity android:name=".ui.poster_page.EventInfo" />
         <activity
             android:name=".ui.MainActivity"

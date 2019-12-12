@@ -80,6 +80,29 @@ public class DatabaseQuery extends DatabaseObject{
         return events;
     }
 
+    public EventObject getEvent (int id) {
+        String query = "SELECT * FROM yellow_objects WHERE id=" + id;
+        EventObject event = null;
+
+        Cursor cursor = this.getDbConnection().rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            Log.d("Event", "Event found");
+            String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
+            String venue = cursor.getString(cursor.getColumnIndexOrThrow("venue"));
+            String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
+            String startdt = cursor.getString(cursor.getColumnIndexOrThrow("startdt"));
+            String enddt = cursor.getString(cursor.getColumnIndexOrThrow("enddt"));
+            //convert start date to date object
+            Date startdtd = convertStringToDate(startdt);
+            Log.d("Date", startdt);
+            Date enddtd = convertStringToDate(enddt);
+
+            event = new EventObject(id,title,description,venue,startdtd,enddtd);
+        }
+
+        return event;
+    }
+
     public void addEvent(String title, String desc, String venue, Date startdt, Date enddt) {
         SimpleDateFormat f = new SimpleDateFormat("d-MM-yyyy HH:mm:ss");
         try {

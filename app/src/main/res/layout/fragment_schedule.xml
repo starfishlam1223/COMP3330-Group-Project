@@ -61,6 +61,11 @@
                 android:layout_width="0dp"
                 android:layout_height="1500dp"
                 android:layout_weight="2">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@color/colorDivider" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -396,6 +401,11 @@
                 android:layout_width="0dp"
                 android:layout_height="1500dp"
                 android:layout_weight="8">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@color/colorDivider" />
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
