@@ -196,7 +196,6 @@ public class GameFragment extends Fragment {
         @Override
         public void run() {
             if (isRecording){
-                System.out.println(System.currentTimeMillis());
                 int x = myAudioRecorder.getMaxAmplitude();
                 if(GameFragment.bigHeadShown){
                     float newScale = 1f + ((float)Math.pow((x/15000f),3));
