@@ -32,10 +32,14 @@ public class Question extends AppCompatActivity {
             } else {
                 qList.answer(false);
             }
+        } else if (requestCode == 1) {
+            finish();
         }
 
         if (qList.currentQuestion > 10) {
-
+            Intent result = new Intent(ctx, Result.class);
+            result.putExtra("score", qList.getCorrectCount());
+            startActivityForResult(result, 1);
         } else {
             showNewQuestion(ctx);
         }
@@ -61,7 +65,7 @@ public class Question extends AppCompatActivity {
     public void showNewQuestion(final Context ctx) {
         Shop shop = qList.getRandomShop();
 
-        currentQuestion.setText("Question" + qList.getCurrentQuestion());
+        currentQuestion.setText("Question " + qList.getCurrentQuestion());
         shopName.setText(shop.getName());
         shopImage.setImageResource(shop.getImageId());
 

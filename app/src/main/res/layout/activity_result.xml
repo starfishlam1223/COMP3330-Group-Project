@@ -17,6 +17,42 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="The quiz has finished!"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+
+        <ImageView
+            android:id="@+id/resultImage"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            app:srcCompat="@drawable/fail" />
+
+        <TextView
+            android:id="@+id/sText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="You have scored:"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="10/10"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display3" />
+
+        <TextView
+            android:id="@+id/comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="TextView"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+        <Button
+            android:id="@+id/qButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quit" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
