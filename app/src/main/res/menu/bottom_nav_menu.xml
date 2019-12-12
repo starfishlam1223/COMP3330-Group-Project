@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+
     <item
-        android:id="@+id/navigation_ybmap"
-        android:icon="@drawable/ic_local_dining_black_24dp"
-        android:title="@string/title_ybmap" />
+        android:id="@+id/navigation_schedule"
+        android:icon="@drawable/ic_date_range_black_24dp"
+        android:title="@string/title_schedule" />
 
     <item
         android:id="@+id/navigation_poster_page"
@@ -12,9 +13,10 @@
         android:title="@string/title_poster_page" />
 
     <item
-        android:id="@+id/navigation_schedule"
-        android:icon="@drawable/ic_date_range_black_24dp"
-        android:title="@string/title_schedule" />
+        android:id="@+id/navigation_ybmap"
+        android:icon="@drawable/ic_local_dining_black_24dp"
+        android:title="@string/title_ybmap" />
+
     <item
         android:id="@+id/navigation_game"
         android:icon="@drawable/ic_videogame_asset_black_24dp"
