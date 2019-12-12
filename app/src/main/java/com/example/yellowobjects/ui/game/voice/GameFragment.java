@@ -36,6 +36,7 @@ public class GameFragment extends Fragment {
     private VolumeVisualizerView visualizerView;
     private View rootView;
     public static ImageView maria;
+    public ImageView bigpic;
     public TextView description;
     public TextView timeDisplay;
 
@@ -67,6 +68,31 @@ public class GameFragment extends Fragment {
         isRecording = false;
         visualizerView.invalidate();
         progressView.invalidate();
+    }
+
+    private void cleanup(){
+        if (isRecording) {
+            try {
+                if (myAudioRecorder != null) {
+                    myAudioRecorder.stop();
+                    myAudioRecorder.release();
+                    myAudioRecorder = null;
+                    recordPause();
+                    handler.removeCallbacks(updateVisualizer);
+                }
+            } catch (Exception e) {
+                recordPause();
+                handler.removeCallbacks(updateVisualizer);
+            }
+            if (mpSiachandelier_A != null){
+                mpSiachandelier_A.release();
+                mpSiachandelier_A = null;
+            }
+            if (mpSiachandelier_B != null){
+                mpSiachandelier_B.release();
+                mpSiachandelier_B = null;
+            }
+        }
     }
     private void recordStart(){
         if(!isRecording){
@@ -100,6 +126,7 @@ public class GameFragment extends Fragment {
         progressView = (ProgressView) rootView.findViewById(R.id.progress);
         visualizerView = (VolumeVisualizerView) rootView.findViewById(R.id.visualizer);
         maria = (ImageView) rootView.findViewById(R.id.fat);
+        bigpic = (ImageView) rootView.findViewById(R.id.bigpic);
         description = (TextView) rootView.findViewById(R.id.txt_description);
         timeDisplay = (TextView) rootView.findViewById(R.id.txt_time);
 
@@ -115,36 +142,28 @@ public class GameFragment extends Fragment {
                         return false;
                     }
                 });
+        bigpic.setOnTouchListener(
+                new OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        //cleanup();
+                        //recordStart();
+                        visualizerView.clear();
+                        if(mpSiachandelier_A!=null)
+                            mpSiachandelier_A.stop();
+                        if(mpSiachandelier_B!=null)
+                            mpSiachandelier_B.stop();
+                        resetTime();
+
+                        bigpic.setVisibility(View.GONE);
+                        return false;
+                    }
+                });
 
         rootView.setFocusableInTouchMode(true);
         rootView.requestFocus();
 
         return rootView;
-    }
-
-    private void cleanup(){
-        if (isRecording) {
-            try {
-                if (myAudioRecorder != null) {
-                    myAudioRecorder.stop();
-                    myAudioRecorder.release();
-                    myAudioRecorder = null;
-                    recordPause();
-                    handler.removeCallbacks(updateVisualizer);
-                }
-            } catch (Exception e) {
-                recordPause();
-                handler.removeCallbacks(updateVisualizer);
-            }
-            if (mpSiachandelier_A != null){
-                mpSiachandelier_A.release();
-                mpSiachandelier_A = null;
-            }
-            if (mpSiachandelier_B != null){
-                mpSiachandelier_B.release();
-                mpSiachandelier_B = null;
-            }
-        }
     }
     @Override
     public void onPause() {
@@ -173,6 +192,7 @@ public class GameFragment extends Fragment {
                     if(GameFragment.currentTime< GameFragment.MAXTIME)
                         time = GameFragment.currentTime/1000f;
                     else if(GameFragment.currentTime == GameFragment.MAXTIME){
+                        bigpic.setVisibility(View.VISIBLE);
                         if(mpSiachandelier_B!=null)
                             mpSiachandelier_B.start();
                     }
