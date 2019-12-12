@@ -181,23 +181,30 @@ public class GameFragment extends Fragment {
         cleanup();
     }
 
+    float lastScales[] = {1,1,1};
+    int ptr = 0;
     Runnable updateVisualizer = new Runnable() {
         @Override
         public void run() {
             if (isRecording){
                 int x = myAudioRecorder.getMaxAmplitude();
                 if(bigHeadShown){
-                    float scale = 1f + x/10000f;
+                    float newScale = 1f + ((float)Math.pow((x/15000f),3));
+                    float scale = (newScale+lastScales[0]+lastScales[1]+lastScales[2])/4;
                     bigpic.setScaleX(scale);
                     bigpic.setScaleY(scale);
+                    lastScales[ptr] = scale;
+                    ptr = (ptr +1) % 3;
                 }
                 visualizerView.addAmplitude(x);
                 if(x>((int)GameFragment.BASE)){
                     float time = MAXTIME / 1000f;
                     GameFragment.currentTime += REPEAT_INTERVAL;
                     if(GameFragment.currentTime==5900){
-                        if(mpSiachandelier_A!=null)
-                            mpSiachandelier_A.start();
+                        if(!bigHeadShown){
+                            if(mpSiachandelier_A!=null)
+                                mpSiachandelier_A.start();
+                        }
                     }
                     if(GameFragment.currentTime< GameFragment.MAXTIME)
                         time = GameFragment.currentTime/1000f;
