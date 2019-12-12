@@ -190,7 +190,7 @@ public class GameFragment extends Fragment {
     }
 
     Runnable updateVisualizer = new Runnable(){
-        float lastScales[] = {1,1,1};
+        float lastScales[] = {1,1,1,1,1};
         int ptr = 0;
         long startTime = System.currentTimeMillis();
         @Override
@@ -200,11 +200,11 @@ public class GameFragment extends Fragment {
                 int x = myAudioRecorder.getMaxAmplitude();
                 if(GameFragment.bigHeadShown){
                     float newScale = 1f + ((float)Math.pow((x/15000f),3));
-                    float scale = (newScale+lastScales[0]+lastScales[1]+lastScales[2])/4;
+                    float scale = (newScale+lastScales[0]+lastScales[1]+lastScales[2]+lastScales[3]+lastScales[4])/6;
                     bigpic.setScaleX(scale);
                     bigpic.setScaleY(scale);
                     lastScales[ptr] = scale;
-                    ptr = (ptr +1) % 3;
+                    ptr = (ptr +1) % 5;
                 }
                 visualizerView.addAmplitude(x);
                 if(x>((int)GameFragment.BASE)){
