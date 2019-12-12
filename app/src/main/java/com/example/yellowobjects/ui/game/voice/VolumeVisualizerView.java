@@ -16,8 +16,8 @@ public class VolumeVisualizerView extends View {
     private static final int LINE_WIDTH = 5;
     private static final int LINE_SCALE = 15;
     private List<Float> amplitudes = null;
-    private int width;
-    private int height;
+    private int width = -1;
+    private int height = -1;
     private Paint basePaint;
     private Paint linePaint;
 
@@ -33,9 +33,10 @@ public class VolumeVisualizerView extends View {
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        if(w!=width)
+            amplitudes = new ArrayList<Float>(w / LINE_WIDTH);
         width = w;
         height = h;
-        amplitudes = new ArrayList<Float>(width / LINE_WIDTH);
     } 
 
     public void clear() {
