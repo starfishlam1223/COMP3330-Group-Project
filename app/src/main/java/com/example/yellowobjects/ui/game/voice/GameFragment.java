@@ -43,16 +43,6 @@ public class GameFragment extends Fragment {
     MediaPlayer mpSiachandelier_A;
     MediaPlayer mpSiachandelier_B;
 
-    private boolean doubleBackToExitPressedOnce;
-    private Handler mHandler = new Handler();
-
-    private final Runnable mRunnable = new Runnable() {
-        @Override
-        public void run() {
-            doubleBackToExitPressedOnce = false;
-        }
-    };
-
     public static final int REPEAT_INTERVAL = 10;
 
     private Handler handler = new Handler();
@@ -69,7 +59,6 @@ public class GameFragment extends Fragment {
         visualizerView.invalidate();
         progressView.invalidate();
     }
-
     private void cleanup(){
         if (isRecording) {
             try {
@@ -84,15 +73,16 @@ public class GameFragment extends Fragment {
                 recordPause();
                 handler.removeCallbacks(updateVisualizer);
             }
-            if (mpSiachandelier_A != null){
-                mpSiachandelier_A.release();
-                mpSiachandelier_A = null;
-            }
-            if (mpSiachandelier_B != null){
-                mpSiachandelier_B.release();
-                mpSiachandelier_B = null;
-            }
         }
+        if (mpSiachandelier_A != null){
+            mpSiachandelier_A.release();
+            mpSiachandelier_A = null;
+        }
+        if (mpSiachandelier_B != null){
+            mpSiachandelier_B.release();
+            mpSiachandelier_B = null;
+        }
+        bigHeadDisappear();
     }
     private void recordStart(){
         if(!isRecording){
@@ -115,6 +105,16 @@ public class GameFragment extends Fragment {
             mpSiachandelier_A = MediaPlayer.create(getContext(), R.raw.siachandelier_a);
             mpSiachandelier_B = MediaPlayer.create(getContext(), R.raw.siachandelier_b);
         }
+    }
+
+    public static boolean bigHeadShown = false;
+    private void bigHeadAppear(){
+        bigpic.setVisibility(View.VISIBLE);
+        bigHeadShown = true;
+    }
+    private void bigHeadDisappear(){
+        bigpic.setVisibility(View.GONE);
+        bigHeadShown = false;
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -150,12 +150,17 @@ public class GameFragment extends Fragment {
                         //recordStart();
                         visualizerView.clear();
                         if(mpSiachandelier_A!=null)
-                            mpSiachandelier_A.stop();
+                            if(mpSiachandelier_A.isPlaying()){
+                                mpSiachandelier_A.seekTo(0);
+                                mpSiachandelier_A.pause();
+                            }
                         if(mpSiachandelier_B!=null)
-                            mpSiachandelier_B.stop();
+                            if(mpSiachandelier_B.isPlaying()){
+                                mpSiachandelier_B.seekTo(0);
+                                mpSiachandelier_B.pause();
+                            }
                         resetTime();
-
-                        bigpic.setVisibility(View.GONE);
+                        bigHeadDisappear();
                         return false;
                     }
                 });
@@ -181,20 +186,27 @@ public class GameFragment extends Fragment {
         public void run() {
             if (isRecording){
                 int x = myAudioRecorder.getMaxAmplitude();
+                if(bigHeadShown){
+                    float scale = 1f + x/10000f;
+                    bigpic.setScaleX(scale);
+                    bigpic.setScaleY(scale);
+                }
                 visualizerView.addAmplitude(x);
                 if(x>((int)GameFragment.BASE)){
+                    float time = MAXTIME / 1000f;
                     GameFragment.currentTime += REPEAT_INTERVAL;
                     if(GameFragment.currentTime==5900){
                         if(mpSiachandelier_A!=null)
                             mpSiachandelier_A.start();
                     }
-                    float time = MAXTIME / 1000f;
                     if(GameFragment.currentTime< GameFragment.MAXTIME)
                         time = GameFragment.currentTime/1000f;
                     else if(GameFragment.currentTime == GameFragment.MAXTIME){
-                        bigpic.setVisibility(View.VISIBLE);
-                        if(mpSiachandelier_B!=null)
-                            mpSiachandelier_B.start();
+                        if(!bigHeadShown){
+                            bigHeadAppear();
+                            if(mpSiachandelier_B!=null)
+                                mpSiachandelier_B.start();
+                        }
                     }
                     timeDisplay.setText(String.format("%.2f", time)+"s");
                 }

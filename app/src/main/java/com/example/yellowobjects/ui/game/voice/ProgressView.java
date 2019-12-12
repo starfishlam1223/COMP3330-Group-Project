@@ -30,7 +30,9 @@ public class ProgressView extends View {
     public void onDraw(Canvas canvas) {
         canvas.drawColor(Color.GRAY);
         int middle = height / 2;
-        float progressPercentage = ((float)GameFragment.currentTime)/((float)GameFragment.MAXTIME);
+        float progressPercentage = 1;
+        if(!GameFragment.bigHeadShown)
+            progressPercentage = ((float)GameFragment.currentTime)/((float)GameFragment.MAXTIME);
         for(int i = 0; i<width; i+=LINE_WIDTH){
             float loopPercentage = ((float)i+1f)/((float)width);
             if(loopPercentage<=progressPercentage)
