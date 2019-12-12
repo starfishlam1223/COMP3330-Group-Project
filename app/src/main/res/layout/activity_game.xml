@@ -13,12 +13,12 @@
     <ImageView
         android:id="@+id/fat"
         android:layout_width="match_parent"
-        android:layout_height="275dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:adjustViewBounds="false"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/fat_ma_cute_cute_pic"
         android:requiresFadingEdge="horizontal|vertical"
-        android:scaleType="centerCrop"
         android:scaleX="1"
         android:scaleY="1"
         ripple:srcCompat="@drawable/fat_ma_a" />
