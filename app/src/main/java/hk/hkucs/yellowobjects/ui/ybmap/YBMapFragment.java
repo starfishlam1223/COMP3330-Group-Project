@@ -32,7 +32,8 @@ public class YBMapFragment extends Fragment {
         webView = (WebView) root.findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("https://www.google.com/maps/d/u/0/viewer?mid=10SCYSkgC9KMC_kAGtLChlGRLWVbk8NTs&ll=22.340583507604187%2C114.06832897361642&z=11");
+//        webView.loadUrl("https://www.google.com/maps/d/u/0/viewer?mid=10SCYSkgC9KMC_kAGtLChlGRLWVbk8NTs&ll=22.340583507604187%2C114.06832897361642&z=11");
+        webView.loadUrl("https://www.google.com/maps/d/u/0/viewer?mid=1y44FzG0yy2qK_IPOotMg06ckh_ypZoJW&ll=22.354918648595508%2C114.06804800000009&z=10");
         YBMapViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
